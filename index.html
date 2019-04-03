@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="warp">
+        {{ message }}
+
+        <header v-bind:title="headerTitle">
+              {{ headerTitle }}
+        </header>
+
+        <nav class="my-nav"
+             v-bind:title="navMessageTitle"
+             v-if="flag"
+        >
+        {{ navMessage }}
+    </nav>
+    <div>
+    <ul>
+        <li
+          v-for="(value, index) in list"
+          :key="index"
+        >
+        {{ value.text }}
+    </li>
+    </ul>
+</div>
+<!-- <div v-bind:class="[activeClass, comeClass]">
+      我是class与style
+</div> -->
+<div
+    class="my-footer"
+    v-on:click="handleAddClick"
+    >
+    <span 
+       class="my-footer-span"
+       v-if="spanFlag"
+       >
+    我是footer下的span标签
+    </span>
+</div>
+
+<my-header>
+</my-header>
+</div>
+<!-- <div id="app-6">
+    <p>{{ message }}</p>
+    <input v-model="message" @keyup="handleKeyUp" @keydown="handleKeyDown">
+<div class="stop-event"
+@click="handleAddClick">阻止冒泡</div>
+</div> -->
+<div id="example">
+    <p>Original message: {{ message }}</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+</body>
+<script src="./js/vue.js"></script>
+<script type="text/javascript">
+console.log(Vue);
+// Vue 组件系统
+Vue.component("my-header", {
+    name: "my-header",
+    template:`
+    <div class="my-header">
+    <div class="my-header-left">
+    <a href="#" @click="$emit('incrementHeader',headerMessage)">登录</a>
+    <a href="#">注册</a>
+    </div>
+    <div class="my-header-right">
+    <a href="#">我的</a>
+    <a href="#" @click="handlePropsData">查看</a>
+    </div>
+    // <div class="my-header-props">
+    // {{ todo }}
+    // {{ ll }}
+    // </div>
+    </div>
+    `,
+    data: function () {
+        return {
+            headerMessage: "我是header组件",
+            // props:"xxx",
+            // lsc:22,
+            propsDataChildren: null
+        }
+    },
+    methods: {
+    handleHeader: function () {
+        console.log(this);
+    },
+    handlePropsData: function () {
+        console.log(this.todo, "todo");
+        this.propsDataChildren = this.todo;
+        this.propsDataChildren = this.headerMessage;
+        console.log(this.propsDataChildren, "propsDataChildren")
+    }
+    // incrementHeader: function () {
+    //     this.$emit('increment')
+    // }
+    },
+    computed: {
+
+    },
+    props: {
+        todo: {
+            type:String,
+            default: ""
+        },
+        ll: {
+            type:Number,
+            default: ""
+        }
+    }
+    
+})
+    var vm = new Vue ({
+        el: "#warp",
+        data: function () {
+            return {
+                message: "hello vue",
+                headerTitle: "我是header标签title值",
+                navMessage: "我是导航标签",
+                navMessageTitle: "我是导航标签title",
+                flag : true,
+                list: [
+                    { text: "学好vue" },
+                    { text: "学好js" },
+                    { text: "学好HTML" },
+                    { text: "学好css" },
+                    { text: "妈妈再也不用担心我找不到工作了" }
+                ],
+                // activeClass: "my-class",
+                // comeClass: "ny-common-class" 
+                spanFlag: true
+            }
+        },
+        methods: {
+            handleAddClick: function () {
+                console.log(this);
+            },
+            methods: {
+        //     incrementTotal: function () {
+            
+        //    }
+        }
+        }
+    })
+    // var app6 = new Vue ({
+    //     el: '#app-6',
+    //     data: {
+    //         message: 'Hello Vue!'
+    //     },
+    //     methods: {
+    //     handleAddClick: function () {
+    //         console.log("子盒子冒泡");
+    //     }
+    //     },
+    //     handleAddClick: function () {
+
+    //     }
+    // }) 
+    var cn = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello'
+        },
+        computed: {
+            reversedMessage: function () {
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+
+</html>
